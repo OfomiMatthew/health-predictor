@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <!-- Form Section -->
+        <div class="columns is-centered mt-5">
+            <div class="column is-half">
+                <div class="box">
+                    <h1 class="title is-4 has-text-centered">Predict Symptoms</h1>
+                    <form action="/predict" method="post">
+                     
+                        <div class="field">
+                            <label class="label" for="symptoms">Enter Symptoms (e.g. itching, coughing)</label>
+                            <div class="control">
+                                <input class="input" type="text" name="symptoms" id="symptoms" placeholder="Enter symptoms">
+                            </div>
+                        </div>
+
+                        <div class="field is-grouped is-grouped-centered">
+                            <div class="control">
+                                <button class="button is-primary" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        {% if predicted_disease %}
+        <div class="box mt-5">
+            <h2 class="title is-4 has-text-centered">Prediction Results</h2>
+            <div class="columns is-multiline is-variable is-4">
+                <!-- Predicted Disease Card -->
+                <div class="column is-one-third">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-5">Predicted Disease</h3>
+                            <p>{{ predicted_disease }}</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Description Card -->
+                <div class="column is-one-third">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-5">Description</h3>
+                            <p>{{ describe }}</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Precautions Card -->
+                <div class="column is-one-third">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-5">Precautions</h3>
+                            <ul>
+                                {% for index, prec in precaution %}
+                                    <li>{{ index }}. {{ prec }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Medications Card -->
+                <div class="column is-one-third">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-5">Medications</h3>
+                            <ul>
+                                {% for index, med in medication %}
+                                    <li>{{ index }}. {{ med }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Diets Card -->
+                <div class="column is-one-third">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-5">Diets</h3>
+                            <ul>
+                                {% for index, diet in diets %}
+                                    <li>{{ index }}. {{ diet }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Workout Recommendations Card -->
+                <div class="column is-one-third">
+                    <div class="card">
+                        <div class="card-content">
+                            <h3 class="title is-5">Workout Recommendations</h3>
+                            <ul>
+                                {% for index, value in workout %}
+                                    <li>{{ index }}. {{ value }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endblock content %}

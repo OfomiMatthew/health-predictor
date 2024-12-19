@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css"
+    >
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://bulma.io">
+                <svg width="640" height="160" viewBox="0 0 640 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Your SVG Logo -->
+                </svg>
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mt-5">
+        {% if messages %}
+            <div class="notification-container">
+                {% for message in messages %}
+                    <div class="notification is-{{ message.tags }} is-light">
+                        {{ message }}
+                        <button class="delete"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        {% block content %}
+        {% endblock content %}
+    </div>
+
+    <script>
+        // Enable closing notifications
+        document.addEventListener('DOMContentLoaded', () => {
+            const deleteButtons = document.querySelectorAll('.notification .delete');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const notification = button.parentNode;
+                    notification.parentNode.removeChild(notification);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
